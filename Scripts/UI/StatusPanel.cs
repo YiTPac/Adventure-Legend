@@ -22,12 +22,12 @@ public partial class StatusPanel : HBoxContainer
 	}
 	public override void _ExitTree()
 	{
-		if(stats != null)
+		if (stats != null)
 		{
 			stats.HealthChanged -= UpdateHealthBar;
 			stats.EnergyChanged -= UpdateEnergyBar;
 		}
-		
+
 	}
 	public void UpdateHealthBar(bool skipAnimation)
 	{

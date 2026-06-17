@@ -1,9 +1,34 @@
 using Godot;
 using System;
 
+public struct StatsData
+{
+	public int maxHealth;
+	public float maxEnergy;
+	public int currentHealth;
+}
+
 [GlobalClass]
 public partial class Stats : Node
 {
+	public StatsData Data
+	{
+		get
+		{
+			return new StatsData
+			{
+				maxEnergy = MaxEnergy,
+				maxHealth = MaxHealth,
+				currentHealth = _currentHealth
+			};
+		}
+		set
+		{
+			MaxHealth = value.maxHealth;
+			MaxEnergy = value.maxEnergy;
+			_currentHealth = value.currentHealth;
+		}
+	}
 	[Signal] public delegate void HealthChangedEventHandler();
 	[Signal] public delegate void EnergyChangedEventHandler();
 	[Export] public int MaxHealth { get; private set; }
@@ -56,4 +81,5 @@ public partial class Stats : Node
 	{
 		CurrentEnergy += energyRegen * (float)delta;
 	}
+
 }

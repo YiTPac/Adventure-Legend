@@ -20,7 +20,7 @@ public partial class PlayerDyingState : State
 		player.AnimationPlayer.Play("Death");
 		player.InvincibleTimer.Stop();
 		await ToSignal(GetTree().CreateTimer(2.5f), "timeout");
-		GetTree().ReloadCurrentScene();
+		Game.Instance.LoadGame();
 	}
 	public override void OnExit()
 	{

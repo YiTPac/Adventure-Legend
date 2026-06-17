@@ -1973,7 +1973,7 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1311620786 node_paths=PackedStringArray("interationIcon", "Graphics", "AnimationPlayer", "CoyoteTimer", "JumpRequestTimer", "SlideRequestTimer", "InvincibleTimer", "HandChecker", "FootChecker", "Stats")]
+[node name="Player" type="CharacterBody2D" unique_id=1311620786 node_paths=PackedStringArray("interationIcon", "Graphics", "AnimationPlayer", "CoyoteTimer", "JumpRequestTimer", "SlideRequestTimer", "InvincibleTimer", "HandChecker", "FootChecker")]
 collision_layer = 2
 script = ExtResource("1_kyqiw")
 jumpVelocity = -320.0
@@ -1991,7 +1991,6 @@ SlideRequestTimer = NodePath("SlideRequestTimer")
 InvincibleTimer = NodePath("InvincibleTimer")
 HandChecker = NodePath("Graphics/HandChecker")
 FootChecker = NodePath("Graphics/FootChecker")
-Stats = NodePath("")
 
 [node name="Graphics" type="Node2D" parent="." unique_id=1365819634]
 
@@ -2147,14 +2146,14 @@ one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1190302298]
 
-[node name="StatusPanel" parent="CanvasLayer" unique_id=1297043245 node_paths=PackedStringArray("stats") instance=ExtResource("20_m0x7a")]
+[node name="StatusPanel" parent="CanvasLayer" unique_id=1297043245 instance=ExtResource("20_m0x7a")]
 offset_left = 8.0
 offset_top = 9.0
 offset_right = 96.0
 offset_bottom = 35.0
-stats = NodePath("")
 
 [node name="InteractionIcon" type="AnimatedSprite2D" parent="." unique_id=1400333691]
+visible = false
 position = Vector2(0, -46)
 sprite_frames = SubResource("SpriteFrames_kih0c")
 animation = &"Default"

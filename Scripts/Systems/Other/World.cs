@@ -3,11 +3,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+public struct WorldStateData
+{
+	public List<string> enemiesAlive = [];
+	public WorldStateData() { }
+}
+
 public partial class World : Node2D
 {
+	public WorldStateData Data
+	{
+		get
+		{
+			WorldStateData worldStateData = new WorldStateData();
+			foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
+			{
+				var path = GetPathTo(node);
+				worldStateData.enemiesAlive.Add(path);
+			}
+			return worldStateData;
+		}
+		set
+		{
+			foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
+			{
+				var path = GetPathTo(node).ToString();
+				if (!value.enemiesAlive.Contains(path))
+				{
+					node.QueueFree();
+				}
+			}
+		}
+	}
 	[Export] private TileMapLayer tileMapLayer;
 	[Export] private Camera2D camera;
-	[Export] private Player player;
+	[Export] public Player player;
 	public override void _Ready()
 	{
 		InitializeCamera();
@@ -32,7 +62,7 @@ public partial class World : Node2D
 		//camera.ForceUpdateScroll();
 	}
 
-	public void UpdatePlayer(Vector2 position,Player.Direction direction)
+	public void UpdatePlayer(Vector2 position, Player.Direction direction)
 	{
 		player.GlobalPosition = position;
 		player.FacingDirection = direction;
@@ -40,26 +70,9 @@ public partial class World : Node2D
 		//camera.ForceUpdateScroll();
 	}
 
-	public List<NodePath> ToDictionary()
+	public void UpdatePlayer(PlayerData playerData)
 	{
-		List<NodePath> enemiesAlive = [];
-		foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
-		{
-			var path = GetPathTo(node);
-			enemiesAlive.Add(path);
-		}
-		return enemiesAlive;
-	}
-
-	public void FromDictonary(List<NodePath> enemiesAlive)
-	{
-		foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
-		{
-			var path = GetPathTo(node);
-			if (!enemiesAlive.Contains(path))
-			{
-				node.QueueFree();
-			}
-		}
+		player.Data = playerData;
+		camera.ResetSmoothing();
 	}
 }

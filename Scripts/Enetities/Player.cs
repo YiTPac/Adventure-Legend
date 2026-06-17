@@ -1,6 +1,14 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+
+public struct PlayerData
+{
+	public Player.Direction direction;
+	public float PosX;
+	public float PosY;
+}
 
 public partial class Player : CharacterBody2D
 {
@@ -9,13 +17,31 @@ public partial class Player : CharacterBody2D
 		Left = -1,
 		Right = 1
 	}
+	public PlayerData Data
+	{
+		get
+		{
+			return new PlayerData
+			{
+				direction = FacingDirection,
+				PosX = GlobalPosition.X,
+				PosY = GlobalPosition.Y
+			};
+		}
+		set
+		{
+			FacingDirection = value.direction;
+			GlobalPosition = new Vector2(value.PosX, value.PosY);
+		}
+	}
 	private Direction _facingDirection;
-	[Export] public Direction FacingDirection
+	[Export]
+	public Direction FacingDirection
 	{
 		set
-        {
-            _facingDirection = value;
-			Graphics.Scale =  new Vector2((float)_facingDirection, Graphics.Scale.Y);
+		{
+			_facingDirection = value;
+			Graphics.Scale = new Vector2((float)_facingDirection, Graphics.Scale.Y);
 		}
 		get
 		{
@@ -149,6 +175,37 @@ public partial class Player : CharacterBody2D
 		if (@event.IsActionPressed("Interact") && CurrentInteractable.Count > 0)
 		{
 			CurrentInteractable.Last().Interact(this);
+		}
+		if (@event.IsActionPressed("Save"))
+		{
+			// var options = new JsonSerializerOptions { IncludeFields = true };
+			// string jsonString = JsonSerializer.Serialize(Data, options);
+			// GD.Print("JSON: " + jsonString);
+			// string fullPath = ProjectSettings.GlobalizePath(Game.savePath);
+			// GD.Print("Save path: " + fullPath);
+			// using var file = FileAccess.Open(Game.savePath, FileAccess.ModeFlags.Write);
+			// if (file != null)
+			// {
+			// 	file.StoreString(jsonString);
+			// 	GD.Print("File saved successfully!");
+			// }
+			// else
+			// {
+			// 	GD.Print("Failed to open file for writing");
+			// }
+			Game.Instance.SaveGame();
+		}
+		if (@event.IsActionPressed("Load"))
+		{
+			// using var file = FileAccess.Open(Game.savePath, FileAccess.ModeFlags.Read);
+			// if (file != null)
+			// {
+			// 	string jsonText = file.GetAsText();
+			// 	var options = new JsonSerializerOptions { IncludeFields = true };
+			// 	Data = JsonSerializer.Deserialize<PlayerData>(jsonText, options);
+			// 	GD.Print("Yes!");
+			// }
+			Game.Instance.LoadGame();
 		}
 	}
 	public void RegisterInteractable(Interactable interactable)
