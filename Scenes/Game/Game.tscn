@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cnvfnn0wvx1dn"]
+
+[ext_resource type="Script" uid="uid://cc37wpcjgv6wl" path="res://Scripts/Systems/Other/Game.cs" id="1_rdw05"]
+[ext_resource type="Script" uid="uid://it8bxupelvic" path="res://Scripts/Systems/Stats/Stats.cs" id="2_gwu2e"]
+
+[node name="Game" type="Node" unique_id=804497974 node_paths=PackedStringArray("playerStats")]
+script = ExtResource("1_rdw05")
+playerStats = NodePath("PlayerStats")
+
+[node name="PlayerStats" type="Node" parent="." unique_id=1426045887]
+script = ExtResource("2_gwu2e")
+MaxHealth = 50
+MaxEnergy = 10.0
+energyRegen = 0.8
+metadata/_custom_type_script = "uid://it8bxupelvic"
