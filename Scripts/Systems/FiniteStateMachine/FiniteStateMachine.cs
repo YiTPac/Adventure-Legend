@@ -49,13 +49,18 @@ public partial class FiniteStateMachine : Node
 		if (states.TryGetValue(typeof(T), out var newState))
 		{
 			StateTime = 0;
+			// if (owner is Player)
+			// {
+			// 	GD.Print($"{CurrentState.Name} => {newState.Name}");
+			// }
 			CurrentState?.OnExit();
 			CurrentState = newState;
 			CurrentState.OnEnter();
+
 		}
 		else
 		{
-			//GD.PrintErr($"State of type {typeof(T)} not found in the FSM.");
+			GD.PrintErr($"State of type {typeof(T)} not found in the FSM.");
 		}
 	}
 	public override void _PhysicsProcess(double delta)

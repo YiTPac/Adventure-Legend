@@ -261,7 +261,9 @@ public partial class Player : CharacterBody2D
 	public void WallJump()
 	{
 		Velocity = wallJumpVelocity;
+		//GD.Print(1);
 		Velocity = new Vector2(Velocity.X * GetWallNormal().X, Velocity.Y);
+
 		JumpRequestTimer.Stop();
 	}
 

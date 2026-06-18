@@ -18,6 +18,10 @@ public partial class PlayerWallSlidingState : State
 	{
 		player.AnimationPlayer.Play("WallSliding");
 		//player.Graphics.Scale = new Vector2(-player.GetWallNormal().X, player.Graphics.Scale.Y);
+		if (player.Velocity.Y < 0)
+		{
+			player.Velocity = new Vector2(player.Velocity.X, player.Velocity.Y * 0.75f);
+		}
 		player.FacingDirection = Player.ToDrection(-player.GetWallNormal().X);
 		leaveWallTime = 0f;
 	}

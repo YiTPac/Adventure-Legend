@@ -25,8 +25,10 @@ public partial class World : Node2D
 		}
 		set
 		{
+			GD.Print(value.enemiesAlive.ToString());
 			foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
 			{
+				GetPathTo(node).ToString();
 				var path = GetPathTo(node).ToString();
 				if (!value.enemiesAlive.Contains(path))
 				{

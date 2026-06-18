@@ -26,6 +26,7 @@ public partial class PlayerWallJumpState : State
 	}
 	public override void OnPhysicsUpdate(double delta)
 	{
+		//GD.Print($"[WallJumpState] StateTime={stateMachine.StateTime}, before Gravity Velocity={player.Velocity}");
 		if (stateMachine.StateTime < 0.2)
 		{
 			player.GravityControl(delta, 0);
@@ -35,7 +36,9 @@ public partial class PlayerWallJumpState : State
 			//player.Move(delta);
 			player.GravityControl(delta, 1);
 		}
+		//GD.Print($"[WallJumpState] after Gravity Velocity={player.Velocity}");
 		player.MoveAndSlide();
+		//GD.Print($"[WallJumpState] after MoveAndSlide Velocity={player.Velocity}");
 	}
 	public override void OnProcessUpdate(double delta)
 	{
@@ -49,7 +52,7 @@ public partial class PlayerWallJumpState : State
 			stateMachine.SwitchState<PlayerFallState>();
 			return;
 		}
-		if (player.IsOnWall() && player.CanWallSlide)
+		if (player.IsOnWall() && player.CanWallSlide && stateMachine.StateTime > 0.1)
 		{
 			stateMachine.SwitchState<PlayerWallSlidingState>();
 			return;

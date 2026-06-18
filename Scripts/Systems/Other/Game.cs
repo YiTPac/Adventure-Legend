@@ -24,10 +24,10 @@ public partial class Game : Node
 	public async void ChangeScene(string path, string entryPointName)
 	{
 		var tree = GetTree();
-		tree.Paused = true;
+		// tree.Paused = true;
 
-		var tween = CreateTween();
-		tween.SetPauseMode(Tween.TweenPauseMode.Process);
+		// var tween = CreateTween();
+		// tween.SetPauseMode(Tween.TweenPauseMode.Process);
 		//tween.TweenProperty(colorRect, );
 
 		var originalStateName = tree.CurrentScene.SceneFilePath.GetFile().GetBaseName();
@@ -118,9 +118,11 @@ public partial class Game : Node
 			};
 			GameData gameData = JsonSerializer.Deserialize<GameData>(jsonText, options);
 
+			ChangeScene(gameData.scene, gameData.playerData);
+
 			worldStates = gameData.worldStates;
 			playerStats.Data = gameData.playerStatsData;
-			ChangeScene(gameData.scene, gameData.playerData);
+
 
 
 			GD.Print("File loaded successfully!");
