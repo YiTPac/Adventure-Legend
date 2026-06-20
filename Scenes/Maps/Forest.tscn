@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://d1lw3ysnf8ljg" path="res://Scripts/Systems/Interaction/BoarSpawner.cs" id="8_810sn"]
 [ext_resource type="PackedScene" uid="uid://ddxno6ojvhkq" path="res://Scenes/Objects/MineGate.tscn" id="8_j1wbf"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0p05"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eqm7t"]
 texture = ExtResource("4_l7aha")
 1:2/0 = 0
 1:2/0/terrain_set = 0
@@ -363,7 +363,7 @@ terrain_set_0/terrain_0/name = "Leaves"
 terrain_set_0/terrain_0/color = Color(0.043444656, 0.9763165, 0, 1)
 terrain_set_0/terrain_1/name = "Trunk"
 terrain_set_0/terrain_1/color = Color(0.528811, 0.43169847, 0.16187364, 1)
-sources/0 = SubResource("TileSetAtlasSource_j0p05")
+sources/0 = SubResource("TileSetAtlasSource_eqm7t")
 
 [sub_resource type="Environment" id="Environment_4l03s"]
 background_mode = 3
@@ -568,8 +568,8 @@ texture = ExtResource("4_l7aha")
 region_enabled = true
 region_rect = Rect2(210, 293, 124, 86)
 
-[node name="2" type="Sprite2D" parent="Foreground/Bushes" unique_id=470900632]
-position = Vector2(213, 21)
+[node name="2" type="Sprite2D" parent="Foreground/Bushes" unique_id=616135142]
+position = Vector2(198, -3)
 texture = ExtResource("4_l7aha")
 region_enabled = true
 region_rect = Rect2(210, 293, 124, 86)
@@ -671,7 +671,7 @@ region_enabled = true
 region_rect = Rect2(210, 293, 124, 86)
 
 [node name="Player" parent="." unique_id=1311620786 instance=ExtResource("5_vjthm")]
-position = Vector2(47, 144)
+position = Vector2(80, 144)
 SlidingDuration = 0.2
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=476647574]

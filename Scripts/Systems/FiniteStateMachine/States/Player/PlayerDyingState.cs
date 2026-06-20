@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Threading.Tasks;
 
 public partial class PlayerDyingState : State
 {
@@ -20,7 +18,7 @@ public partial class PlayerDyingState : State
 		player.AnimationPlayer.Play("Death");
 		player.InvincibleTimer.Stop();
 		await ToSignal(GetTree().CreateTimer(2.5f), "timeout");
-		Game.Instance.LoadGame();
+		Game.Instance.NewGame();
 	}
 	public override void OnExit()
 	{
@@ -28,7 +26,8 @@ public partial class PlayerDyingState : State
 	}
 	public override void OnPhysicsUpdate(double delta)
 	{
-
+		player.GravityControl(delta, 1);
+		player.Stand(delta);
 	}
 	public override void OnProcessUpdate(double delta)
 	{

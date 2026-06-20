@@ -567,7 +567,7 @@ _data = {
 &"Walk": SubResource("Animation_dn3w8")
 }
 
-[node name="Boar" unique_id=1710070961 node_paths=PackedStringArray("PlayerChecker", "FloorChecker", "WallChecker", "CalmDownTimer", "Stats") instance=ExtResource("1_er4x3")]
+[node name="Boar" unique_id=1710070961 node_paths=PackedStringArray("PlayerChecker", "FloorChecker", "WallChecker", "CalmDownTimer", "Stats") groups=["Saveable"] instance=ExtResource("1_er4x3")]
 script = ExtResource("2_n55cw")
 PlayerChecker = NodePath("Graphics/PlayerChecker")
 FloorChecker = NodePath("Graphics/FloorChecker")
@@ -587,8 +587,8 @@ position = Vector2(-11, -11)
 target_position = Vector2(-12, 0)
 
 [node name="PlayerChecker" type="RayCast2D" parent="Graphics" parent_id_path=PackedInt32Array(611397099) index="2" unique_id=250154961]
-position = Vector2(-11, -11)
-target_position = Vector2(-85, 0)
+position = Vector2(3, -11)
+target_position = Vector2(-89, 0)
 collision_mask = 3
 
 [node name="FloorChecker" type="RayCast2D" parent="Graphics" parent_id_path=PackedInt32Array(611397099) index="3" unique_id=1998912047]

@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://cc37wpcjgv6wl" path="res://Scripts/Systems/Other/Game.cs" id="1_rdw05"]
 [ext_resource type="Script" uid="uid://it8bxupelvic" path="res://Scripts/Systems/Stats/Stats.cs" id="2_gwu2e"]
 
-[node name="Game" type="Node" unique_id=804497974 node_paths=PackedStringArray("playerStats")]
+[node name="Game" type="Node" unique_id=804497974 node_paths=PackedStringArray("colorRect", "playerStats")]
 script = ExtResource("1_rdw05")
+colorRect = NodePath("CanvasLayer/ColorRect")
 playerStats = NodePath("PlayerStats")
+initialWorldPath = "uid://bdaibep2meccv"
+titleScreenPath = "uid://qagbyx2qrgva"
 
 [node name="PlayerStats" type="Node" parent="." unique_id=1426045887]
 script = ExtResource("2_gwu2e")
@@ -14,7 +17,13 @@ MaxEnergy = 10.0
 energyRegen = 0.8
 metadata/_custom_type_script = "uid://it8bxupelvic"
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=848048750]
-offset_right = 384.0
-offset_bottom = 216.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=243828917]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=685720906]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0)

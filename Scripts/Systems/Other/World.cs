@@ -5,34 +5,59 @@ using System.Linq;
 
 public struct WorldStateData
 {
+
 	public List<string> enemiesAlive = [];
 	public WorldStateData() { }
 }
 
 public partial class World : Node2D
 {
-	public WorldStateData Data
+	public Dictionary<string, string> worldStateDatas = [];
+	public Dictionary<string, string> Data
 	{
 		get
 		{
-			WorldStateData worldStateData = new WorldStateData();
-			foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
+			// WorldStateData worldStateData = new WorldStateData();
+			// foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
+			// {
+			// 	var path = GetPathTo(node);
+			// 	worldStateData.enemiesAlive.Add(path);
+			// }
+			worldStateDatas = [];
+			foreach (Node node in GetTree().GetNodesInGroup("Saveable"))
 			{
-				var path = GetPathTo(node);
-				worldStateData.enemiesAlive.Add(path);
+				if (node is ISaveable saveable)
+				{
+					GD.Print(saveable.GetSaveKey(this));
+					worldStateDatas.Add(saveable.GetSaveKey(this), saveable.SaveState());
+				}
 			}
-			return worldStateData;
+			return worldStateDatas;
 		}
 		set
 		{
-			GD.Print(value.enemiesAlive.ToString());
-			foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
+			// GD.Print(value.enemiesAlive.ToString());
+			// foreach (Node node in GetTree().GetNodesInGroup("Enemies"))
+			// {
+			// 	GetPathTo(node).ToString();
+			// 	var path = GetPathTo(node).ToString();
+			// 	if (!value.enemiesAlive.Contains(path))
+			// 	{
+			// 		node.QueueFree();
+			// 	}
+			// }
+			foreach (Node node in GetTree().GetNodesInGroup("Saveable"))
 			{
-				GetPathTo(node).ToString();
-				var path = GetPathTo(node).ToString();
-				if (!value.enemiesAlive.Contains(path))
+				if (node is ISaveable saveable)
 				{
-					node.QueueFree();
+					if (value.TryGetValue(saveable.GetSaveKey(this), out string jsonText))
+					{
+						saveable.LoadState(jsonText);
+					}
+					else
+					{
+						node.QueueFree();
+					}
 				}
 			}
 		}

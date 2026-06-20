@@ -135,15 +135,27 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-
+		//GD.Print(canCombo);
 	}
 
 	public override void _Process(double delta)
 	{
 		SetInteractionIconVisibility();
 		SetInvincibleFlash();
+		HandleInput();
 		//bool  = IsOnFloor() || CoyoteTimer.TimeLeft > 0;
 		//IsReadyToJump = canJump && JumpRequestTimer.TimeLeft > 0;
+	}
+
+	public void HandleInput()
+	{
+		if (Input.IsActionJustPressed("Attack"))
+		{
+			if (canCombo)
+			{
+				IsComboRequested = true;
+			}
+		}
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -160,16 +172,19 @@ public partial class Player : CharacterBody2D
 				Velocity = new Vector2(Velocity.X, jumpVelocity * 0.5f);
 			}
 		}
-		if (@event.IsActionPressed("Attack"))
-		{
-			if (canCombo)
-			{
-				IsComboRequested = true;
-			}
-		}
 		if (@event.IsActionPressed("Slide"))
 		{
 			SlideRequestTimer.Start();
+			return;
+		}
+		if (@event.IsActionPressed("Down"))
+		{
+			Velocity += new Vector2(0, 1000);
+			return;
+		}
+		if (@event.IsActionPressed("Escape"))
+		{
+			Game.Instance.BackToTitle();
 			return;
 		}
 		if (@event.IsActionPressed("Interact") && CurrentInteractable.Count > 0)

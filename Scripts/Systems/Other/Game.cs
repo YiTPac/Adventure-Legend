@@ -1,17 +1,31 @@
 using Godot;
 using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 
 public partial class Game : Node
 {
-	public const string savePath = "user://data.sav";
+	public const string savePath = "C:\\Users\\YiTPac\\AppData\\Roaming\\Godot\\app_userdata\\Adventure Legend\\data.sav";
 	public static Game Instance { get; private set; }
-	public Dictionary<string, WorldStateData> worldStates = [];
+	public Dictionary<string, Dictionary<string, string>> worldStates = [];
+	public StatsData defaultPlayerStatsData = new StatsData();
+	[Export] public ColorRect colorRect;
 	[Export] public Stats playerStats;
+	[Export(PropertyHint.File)] private string initialWorldPath;
+	[Export(PropertyHint.File)] private string titleScreenPath;
+	public bool HasSave
+	{
+		get
+		{
+			return File.Exists(savePath);
+		}
+	}
 	public override void _Ready()
 	{
+		defaultPlayerStatsData = playerStats.Data;
 		if (Instance == null)
 		{
 			Instance = this;
@@ -24,11 +38,13 @@ public partial class Game : Node
 	public async void ChangeScene(string path, string entryPointName)
 	{
 		var tree = GetTree();
-		// tree.Paused = true;
+		tree.Paused = true;
 
-		// var tween = CreateTween();
-		// tween.SetPauseMode(Tween.TweenPauseMode.Process);
-		//tween.TweenProperty(colorRect, );
+		var tween = CreateTween();
+		tween.SetPauseMode(Tween.TweenPauseMode.Process);
+		tween.TweenProperty(colorRect, "color:a", 1, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
+
 
 		var originalStateName = tree.CurrentScene.SceneFilePath.GetFile().GetBaseName();
 		World world = tree.CurrentScene as World;
@@ -52,15 +68,22 @@ public partial class Game : Node
 				break;
 			}
 		}
+
+		tree.Paused = false;
+		tween = CreateTween();
+		tween.TweenProperty(colorRect, "color:a", 0, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
 	}
 
 	public async void ChangeScene(string path, PlayerData playerData)
 	{
 		var tree = GetTree();
-		var originalStateName = tree.CurrentScene.SceneFilePath.GetFile().GetBaseName();
-		World world = tree.CurrentScene as World;
-		worldStates[originalStateName] = world.Data;
+		tree.Paused = true;
 
+		var tween = CreateTween();
+		tween.SetPauseMode(Tween.TweenPauseMode.Process);
+		tween.TweenProperty(colorRect, "color:a", 1, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
 
 		tree.ChangeSceneToFile(path);
 		await ToSignal(tree, SceneTree.SignalName.TreeChanged);
@@ -71,6 +94,12 @@ public partial class Game : Node
 			newWorld.Data = worldStates[newStateName];
 			newWorld.UpdatePlayer(playerData);
 		}
+
+		tree.Paused = false;
+		tween = CreateTween();
+		tween.TweenProperty(colorRect, "color:a", 0, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
+
 	}
 	public void SaveGame()
 	{
@@ -91,26 +120,35 @@ public partial class Game : Node
 		};
 		string jsonString = JsonSerializer.Serialize(gameData, options);
 		GD.Print("JSON: " + jsonString);
-		string fullPath = ProjectSettings.GlobalizePath(Game.savePath);
-		GD.Print("Save path: " + fullPath);
-		using var file = FileAccess.Open(Game.savePath, FileAccess.ModeFlags.Write);
-		if (file != null)
+		try
 		{
-			file.StoreString(jsonString);
+			File.WriteAllText(savePath, jsonString);
 			GD.Print("File saved successfully!");
 		}
-		else
+		catch (Exception exception)
 		{
-			GD.Print("Failed to open file for writing");
+			GD.Print("Failed to open file for writing, Message:" + exception.Message);
 		}
+
+		// string fullPath = ProjectSettings.GlobalizePath(Game.savePath);
+		// GD.Print("Save path: " + fullPath);
+		// using var file = FileAccess.Open(Game.savePath, FileAccess.ModeFlags.Write);
+		// if (file != null)
+		// {
+		// 	file.StoreString(jsonString);
+
+		// }
+		// else
+		// {
+
+		// }
 	}
 
 	public void LoadGame()
 	{
-		using var file = FileAccess.Open(Game.savePath, FileAccess.ModeFlags.Read);
-		if (file != null)
+		if (File.Exists(savePath))
 		{
-			string jsonText = file.GetAsText();
+			string jsonText = File.ReadAllText(savePath);
 			var options = new JsonSerializerOptions
 			{
 				IncludeFields = true,
@@ -127,5 +165,45 @@ public partial class Game : Node
 
 			GD.Print("File loaded successfully!");
 		}
+	}
+
+	public async void NewGame()
+	{
+		File.Delete(savePath);
+		worldStates = [];
+		var tree = GetTree();
+		tree.Paused = true;
+
+		var tween = CreateTween();
+		tween.SetPauseMode(Tween.TweenPauseMode.Process);
+		tween.TweenProperty(colorRect, "color:a", 1, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
+
+		tree.ChangeSceneToFile(initialWorldPath);
+		playerStats.Data = defaultPlayerStatsData;
+		await ToSignal(tree, SceneTree.SignalName.TreeChanged);
+
+		tree.Paused = false;
+		tween = CreateTween();
+		tween.TweenProperty(colorRect, "color:a", 0, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
+	}
+
+	public async void BackToTitle()
+	{
+		var tree = GetTree();
+		tree.Paused = true;
+
+		var tween = CreateTween();
+		tween.SetPauseMode(Tween.TweenPauseMode.Process);
+		tween.TweenProperty(colorRect, "color:a", 1, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
+
+		tree.ChangeSceneToFile(titleScreenPath);
+
+		tree.Paused = false;
+		tween = CreateTween();
+		tween.TweenProperty(colorRect, "color:a", 0, 0.2d);
+		await ToSignal(tween, Tween.SignalName.Finished);
 	}
 }

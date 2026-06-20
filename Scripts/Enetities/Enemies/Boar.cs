@@ -7,7 +7,7 @@ public partial class Boar : Enemy
 	[Export] public RayCast2D FloorChecker { get; private set; }
 	[Export] public RayCast2D WallChecker { get; private set; }
 	[Export] public Timer CalmDownTimer { get; private set; }
-	[Export] public Stats Stats { get; private set; }
+
 	public bool CanSeePlayer
 	{
 		get

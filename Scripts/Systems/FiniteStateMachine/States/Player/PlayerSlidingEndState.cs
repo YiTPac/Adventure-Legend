@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 public partial class PlayerSlidingEndState : State
 {
@@ -15,6 +17,7 @@ public partial class PlayerSlidingEndState : State
 	}
 	public override void OnEnter()
 	{
+
 		player.AnimationPlayer.Play("SlidingEnd");
 		player.AnimationPlayer.AnimationFinished += OnAnimationFinished;
 	}

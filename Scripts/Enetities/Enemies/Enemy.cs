@@ -1,14 +1,22 @@
 using Godot;
+using Godot.Collections;
 using System.Collections.Generic;
 
-
-public partial class Enemy : CharacterBody2D
+public struct EnemyData
+{
+	public Enemy.Direction direction;
+	public float PosX;
+	public float PosY;
+	public StatsData enemyStatsData;
+}
+public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 {
 	public enum Direction
 	{
 		Right = 1,
 		Left = -1
 	}
+	[Export] public Stats Stats { get; private set; }
 	[Export] public Node2D Graphics { get; private set; }
 	[Export] public AnimationPlayer AnimationPlayer { get; private set; }
 	[Export]
@@ -30,15 +38,12 @@ public partial class Enemy : CharacterBody2D
 	private Vector2 gravity;
 	private Direction _direction;
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	public string SaveKey { get => GetPathTo(this); }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-
-	}
+	// public override Dictionary<string, EnemyData> SaveState()
+	// {
+	// 	return new Dictionary<>
+	// }
 
 	public void GravityControl(double delta, float gravityScale)
 	{
@@ -52,4 +57,23 @@ public partial class Enemy : CharacterBody2D
 		acceleration * (float)delta), Velocity.Y);
 		MoveAndSlide();
 	}
+
+	public EnemyData OnSaveState()
+	{
+		return new EnemyData
+		{
+			direction = direction,
+			PosX = GlobalPosition.X,
+			PosY = GlobalPosition.Y,
+			enemyStatsData = Stats.Data
+		};
+	}
+
+	public void OnLoadState(EnemyData data)
+	{
+		direction = data.direction;
+		GlobalPosition = new Vector2(data.PosX, data.PosY);
+		Stats.Data = data.enemyStatsData;
+	}
+
 }
