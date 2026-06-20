@@ -17,8 +17,8 @@ public partial class PlayerDyingState : State
 		player.CurrentInteractable.Clear();
 		player.AnimationPlayer.Play("Death");
 		player.InvincibleTimer.Stop();
-		await ToSignal(GetTree().CreateTimer(2.5f), "timeout");
-		Game.Instance.NewGame();
+		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+		player.OnDie();
 	}
 	public override void OnExit()
 	{

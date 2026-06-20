@@ -48,6 +48,7 @@ public partial class Player : CharacterBody2D
 			return _facingDirection;
 		}
 	}
+	[Export] private GameOverScreen gameoverScreen;
 	[Export] private bool canCombo;
 	[Export] private float jumpVelocity;
 	[Export] private Vector2 wallJumpVelocity;
@@ -65,6 +66,8 @@ public partial class Player : CharacterBody2D
 	[Export] public RayCast2D HandChecker { get; private set; }
 	[Export] public RayCast2D FootChecker { get; private set; }
 	[Export] public Stats Stats { get; private set; }
+	[Export] public AudioStreamPlayer AttackPlayer { get; private set; }
+	[Export] public AudioStreamPlayer JumpPlayer { get; private set; }
 	public List<Interactable> CurrentInteractable { get; set; } = new List<Interactable>();
 	public bool IsComboRequested { get; set; }
 	public Queue<Damage> PendingDamage { get; set; } = new Queue<Damage>();
@@ -313,6 +316,12 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	public async void OnDie()
+	{
+		gameoverScreen.ShowGameOver();
+		//Game.Instance.NewGame();
+	}
+	
 	public static Direction ToDrection(float value)
 	{
 		if (value < 0)

@@ -1,0 +1,30 @@
+[gd_resource type="Theme" format=3 uid="uid://c05fi4nra55cj"]
+
+[ext_resource type="Texture2D" uid="uid://h2ib1j66muak" path="res://Assets/godot-2d-adventure-tutorial-assets/Legacy-Fantasy - High Forest 2.3/HUD/Base-01.png" id="1_60mtj"]
+[ext_resource type="FontFile" uid="uid://gngjg1cp81go" path="res://Assets/Fonts/Pixel.ttf" id="1_olgl7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60mtj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uej87"]
+texture = ExtResource("1_60mtj")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(94, 14, 20, 20)
+
+[resource]
+default_font = ExtResource("1_olgl7")
+default_font_size = 12
+Button/colors/font_outline_color = Color(0, 0, 0, 0.7058824)
+Button/colors/font_pressed_color = Color(1, 1, 1, 0.5882353)
+Button/constants/outline_size = 3
+Button/styles/disabled = SubResource("StyleBoxEmpty_60mtj")
+Button/styles/focus = SubResource("StyleBoxTexture_uej87")
+Button/styles/hover = SubResource("StyleBoxEmpty_60mtj")
+Button/styles/normal = SubResource("StyleBoxEmpty_60mtj")
+Button/styles/pressed = SubResource("StyleBoxEmpty_60mtj")
