@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c0mphslsslc7r"]
+
+[ext_resource type="Script" uid="uid://dkcudaunobr00" path="res://Scripts/Systems/Other/SoundManager.cs" id="1_6txsj"]
+[ext_resource type="AudioStream" uid="uid://cg0fnmqyi8w32" path="res://Assets/Minifantasy_Dungeon_SFX/07_human_atk_sword_1.wav" id="1_afyq6"]
+[ext_resource type="AudioStream" uid="uid://bkcxu3xdjxhdw" path="res://Assets/Minifantasy_Dungeon_SFX/07_human_atk_sword_3.wav" id="3_hiil0"]
+[ext_resource type="AudioStream" uid="uid://bhcoqhvb4cr71" path="res://Assets/Minifantasy_Dungeon_SFX/12_human_jump_2.wav" id="3_pftoy"]
+[ext_resource type="AudioStream" uid="uid://cgshdut1qqu8i" path="res://Assets/Minifantasy_Dungeon_SFX/12_human_jump_1.wav" id="4_pftoy"]
+[ext_resource type="AudioStream" uid="uid://cdwoxuyumxitu" path="res://Assets/Audio/impactGlass_heavy_003.ogg" id="6_pftoy"]
+[ext_resource type="AudioStream" uid="uid://llwtirhbd6op" path="res://Assets/Audio/impactTin_medium_003.ogg" id="7_pftoy"]
+
+[node name="SoundManager" type="Node" unique_id=1027532089 node_paths=PackedStringArray("sfx", "backgroundMusicPlayer")]
+process_mode = 3
+script = ExtResource("1_6txsj")
+sfx = NodePath("SFX")
+backgroundMusicPlayer = NodePath("BackgroundMusicPlayer")
+
+[node name="SFX" type="Node" parent="." unique_id=1428796769]
+
+[node name="Attack1" type="AudioStreamPlayer" parent="SFX" unique_id=586464134]
+stream = ExtResource("1_afyq6")
+bus = &"SFX"
+
+[node name="Attack2" type="AudioStreamPlayer" parent="SFX" unique_id=914115589]
+stream = ExtResource("3_pftoy")
+bus = &"SFX"
+
+[node name="Attack3" type="AudioStreamPlayer" parent="SFX" unique_id=1190015434]
+stream = ExtResource("3_hiil0")
+bus = &"SFX"
+
+[node name="Jump" type="AudioStreamPlayer" parent="SFX" unique_id=1439497346]
+stream = ExtResource("4_pftoy")
+bus = &"SFX"
+
+[node name="UIPress" type="AudioStreamPlayer" parent="SFX" unique_id=2068329792]
+stream = ExtResource("6_pftoy")
+bus = &"SFX"
+
+[node name="UIFocus" type="AudioStreamPlayer" parent="SFX" unique_id=995563769]
+stream = ExtResource("7_pftoy")
+bus = &"SFX"
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=334801442]
+bus = &"BackgroundMusic"

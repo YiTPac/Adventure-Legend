@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://da2ssik4acoeo"]
+
+[ext_resource type="Theme" uid="uid://c05fi4nra55cj" path="res://Assets/Theme/MainTheme.tres" id="1_hncdc"]
+[ext_resource type="Script" uid="uid://bbixicahg0csw" path="res://Scripts/UI/PauseScreen.cs" id="2_n0gww"]
+[ext_resource type="PackedScene" uid="uid://cwbsj2gyrqpmk" path="res://Scenes/UI/VolumeSlider.tscn" id="2_w3jdu"]
+
+[node name="PauseScreen" type="Control" unique_id=694522923 node_paths=PackedStringArray("resumeButton", "quitButton")]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hncdc")
+script = ExtResource("2_n0gww")
+resumeButton = NodePath("V/Actions/H/Resume")
+quitButton = NodePath("V/Actions/H/Quit")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1282365300]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4117647)
+
+[node name="V" type="VBoxContainer" parent="." unique_id=214594944]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="V" unique_id=1346321003]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "暂停"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioSettings" type="PanelContainer" parent="V" unique_id=339176471]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="V/AudioSettings" unique_id=1620023222]
+layout_mode = 2
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Label" type="Label" parent="V/AudioSettings/GridContainer" unique_id=1475882760]
+layout_mode = 2
+text = "主音量"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolumeSlider" parent="V/AudioSettings/GridContainer" unique_id=1053262142 instance=ExtResource("2_w3jdu")]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="V/AudioSettings/GridContainer" unique_id=1167180792]
+layout_mode = 2
+text = "音乐"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolumeSlider2" parent="V/AudioSettings/GridContainer" unique_id=140893268 instance=ExtResource("2_w3jdu")]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bus = &"BackgroundMusic"
+
+[node name="Label3" type="Label" parent="V/AudioSettings/GridContainer" unique_id=1546325837]
+layout_mode = 2
+text = "音效"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VolumeSlider3" parent="V/AudioSettings/GridContainer" unique_id=988034378 instance=ExtResource("2_w3jdu")]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bus = &"SFX"
+
+[node name="Actions" type="PanelContainer" parent="V" unique_id=777120790]
+layout_mode = 2
+
+[node name="H" type="HBoxContainer" parent="V/Actions" unique_id=1393520288]
+layout_mode = 2
+alignment = 1
+
+[node name="Resume" type="Button" parent="V/Actions/H" unique_id=2071762908]
+layout_mode = 2
+text = "继续游戏"
+
+[node name="Quit" type="Button" parent="V/Actions/H" unique_id=1256507900]
+layout_mode = 2
+text = "返回菜单"

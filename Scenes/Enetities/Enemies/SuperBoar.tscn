@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://drddeikdjali7"]
+
+[ext_resource type="PackedScene" uid="uid://vp0efp70c1ac" path="res://Scenes/Enetities/Enemies/Boar.tscn" id="1_6li04"]
+
+[node name="SuperBoar" unique_id=1710070961 instance=ExtResource("1_6li04")]
+maxSpeed = 240.0
+
+[node name="Graphics" parent="." index="0" unique_id=611397099]
+scale = Vector2(2.5, 2.5)
+
+[node name="Hitbox" parent="Graphics" index="4" unique_id=298937104]
+DamageAmount = 25
+
+[node name="Stats" parent="." index="5" unique_id=1186858638]
+MaxHealth = 500

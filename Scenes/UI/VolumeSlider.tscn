@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cwbsj2gyrqpmk"]
+
+[ext_resource type="Theme" uid="uid://c05fi4nra55cj" path="res://Assets/Theme/MainTheme.tres" id="1_1r5m7"]
+[ext_resource type="Script" uid="uid://c5ttbyslexbtb" path="res://Scripts/UI/VolumeSlider.cs" id="2_v0oo2"]
+[ext_resource type="AudioStream" uid="uid://badhqwy8p5gq0" path="res://Assets/Music/Before The Story.wav" id="3_qy41w"]
+
+[node name="VolumeSlider" type="HSlider" unique_id=1053262142]
+offset_right = 166.0
+offset_bottom = 16.0
+theme = ExtResource("1_1r5m7")
+max_value = 1.0
+step = 0.05
+script = ExtResource("2_v0oo2")
+backgroundMusic = ExtResource("3_qy41w")
