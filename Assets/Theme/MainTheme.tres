@@ -17,6 +17,39 @@ texture_margin_right = 3.0
 texture_margin_bottom = 3.0
 region_rect = Rect2(94, 14, 20, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mtj"]
+atlas = ExtResource("1_60mtj")
+region = Rect2(3, 130, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uej87"]
+atlas = ExtResource("1_60mtj")
+region = Rect2(19, 130, 11, 11)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yva0l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_60mtj"]
+texture = ExtResource("1_60mtj")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+expand_margin_bottom = 1.0
+region_rect = Rect2(95, 207, 18, 18)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yva0l"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 16.0
+content_margin_bottom = 4.0
+texture = ExtResource("1_60mtj")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+region_rect = Rect2(64, 272, 16, 16)
+
 [resource]
 default_font = ExtResource("1_olgl7")
 default_font_size = 12
@@ -28,3 +61,10 @@ Button/styles/focus = SubResource("StyleBoxTexture_uej87")
 Button/styles/hover = SubResource("StyleBoxEmpty_60mtj")
 Button/styles/normal = SubResource("StyleBoxEmpty_60mtj")
 Button/styles/pressed = SubResource("StyleBoxEmpty_60mtj")
+HSlider/icons/grabber = SubResource("AtlasTexture_60mtj")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_uej87")
+HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_yva0l")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_yva0l")
+HSlider/styles/slider = SubResource("StyleBoxTexture_60mtj")
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.4509804)
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_yva0l")

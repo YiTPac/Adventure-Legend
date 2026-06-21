@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bdaibep2meccv"]
 
 [ext_resource type="Script" uid="uid://vsgqur5c2vi5" path="res://Scripts/Systems/Other/World.cs" id="1_cf6ah"]
+[ext_resource type="AudioStream" uid="uid://8g8xr2nxu5tb" path="res://Assets/Music/Field Of Hopes And Dreams.wav" id="2_i4dv8"]
 [ext_resource type="Texture2D" uid="uid://dhl14s6wfjy7w" path="res://Assets/godot-2d-adventure-tutorial-assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="2_j1wbf"]
 [ext_resource type="Script" uid="uid://cbo4ieot8q4no" path="res://Scripts/Systems/Other/EntryPoint.cs" id="2_skdh6"]
 [ext_resource type="Texture2D" uid="uid://do5b0r6sr5mjt" path="res://Assets/godot-2d-adventure-tutorial-assets/Legacy-Fantasy - High Forest 2.3/Trees/Background.png" id="3_skdh6"]
@@ -375,6 +376,7 @@ size = Vector2(13, 20)
 
 [node name="Forest" type="Node2D" unique_id=815159255 node_paths=PackedStringArray("tileMapLayer", "camera", "player")]
 script = ExtResource("1_cf6ah")
+audioStream = ExtResource("2_i4dv8")
 tileMapLayer = NodePath("TileMaps/Geometry")
 camera = NodePath("Player/Camera2D")
 player = NodePath("Player")
@@ -689,15 +691,6 @@ position = Vector2(504, 128)
 [node name="Boar2" parent="." unique_id=1823857553 instance=ExtResource("6_hkb76")]
 position = Vector2(303, -130)
 
-[node name="Line2D" type="Line2D" parent="." unique_id=1442653904 node_paths=PackedStringArray("form", "to")]
-visible = false
-closed = true
-width = 3.0
-default_color = Color(4.415934, 1.0090332, 1.0090332, 1)
-script = ExtResource("7_87k0j")
-form = NodePath("../Player")
-to = NodePath("../Boar")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=276029218]
 environment = SubResource("Environment_4l03s")
 
@@ -709,3 +702,11 @@ metadata/_custom_type_script = "uid://b35vyvvk8tpmv"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoarSpawner" unique_id=1554780109]
 position = Vector2(183.5, 132)
 shape = SubResource("RectangleShape2D_uo7di")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=444154232 node_paths=PackedStringArray("from", "to")]
+closed = true
+width = 3.0
+default_color = Color(4.415934, 1.0090332, 1.0090332, 1)
+script = ExtResource("7_87k0j")
+from = NodePath("../Player")
+to = NodePath("../Boar")

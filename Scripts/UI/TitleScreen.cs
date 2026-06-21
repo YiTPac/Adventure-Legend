@@ -3,6 +3,7 @@ using System;
 
 public partial class TitleScreen : Control
 {
+	[Export] private AudioStream backgroundMusic;
 	[Export] private Button newGameButton;
 	[Export] private Button loadGameButton;
 	[Export] private Button exitGameButton;
@@ -11,15 +12,13 @@ public partial class TitleScreen : Control
 	{
 		newGameButton.GrabFocus();
 		loadGameButton.Disabled = !Game.Instance.HasSave;
-		foreach (Button button in boxContainer.GetChildren())
-		{
-			button.MouseEntered += button.GrabFocus;
-		}
 		newGameButton.Pressed += OnNewGamePressed;
 		loadGameButton.Pressed += OnLoadGamePressed;
 		exitGameButton.Pressed += OnExitGamePressed;
+		SoundManager.Instance.PlayMusic(backgroundMusic);
+		SoundManager.Instance.SetupUiSounds(this);
 	}
-
+	
 	public void OnNewGamePressed()
 	{
 		Game.Instance.NewGame();

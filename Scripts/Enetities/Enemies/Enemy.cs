@@ -16,30 +16,37 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 		Right = 1,
 		Left = -1
 	}
+
 	[Export] public Stats Stats { get; private set; }
 	[Export] public Node2D Graphics { get; private set; }
 	[Export] public AnimationPlayer AnimationPlayer { get; private set; }
 	[Export]
-	public Direction direction
+	public Direction FacingDirection
 	{
-		get => _direction;
+		get => direction;
 		set
 		{
-			_direction = value;
-			if (Graphics != null)
+			if (Mathf.IsZeroApprox((float)value))
 			{
-				Graphics.Scale = new Vector2(-(float)value, Graphics.Scale.Y);
+				return;
 			}
+			direction = value;
+			if (Graphics != null && IsInstanceValid(this))
+			{
+				//GD.Print(Name + ":" + Mathf.Abs(Graphics.Scale.X).ToString() + "and" + (-(float)value).ToString());
+				Graphics.Scale = new Vector2(-(float)value * Mathf.Abs(Graphics.Scale.X), Graphics.Scale.Y);
+			}
+			
 		}
 	}
 	[Export] private float maxSpeed = 180;
 	[Export] private float acceleration = 2000;
 	public Queue<Damage> PendingDamage { get; private set; } = new Queue<Damage>();
 	private Vector2 gravity;
-	private Direction _direction;
+	private Direction direction;
 	// Called when the node enters the scene tree for the first time.
 	public string SaveKey { get => GetPathTo(this); }
-
+	
 	// public override Dictionary<string, EnemyData> SaveState()
 	// {
 	// 	return new Dictionary<>
@@ -53,7 +60,7 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 	public void Move(double delta, float speedScale)
 	{
 		Velocity = new
-		Vector2(Mathf.MoveToward(Velocity.X, (float)direction * maxSpeed * speedScale,
+		Vector2(Mathf.MoveToward(Velocity.X, (float)FacingDirection * maxSpeed * speedScale,
 		acceleration * (float)delta), Velocity.Y);
 		MoveAndSlide();
 	}
@@ -62,7 +69,7 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 	{
 		return new EnemyData
 		{
-			direction = direction,
+			direction = FacingDirection,
 			PosX = GlobalPosition.X,
 			PosY = GlobalPosition.Y,
 			enemyStatsData = Stats.Data
@@ -71,7 +78,7 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 
 	public void OnLoadState(EnemyData data)
 	{
-		direction = data.direction;
+		FacingDirection = data.direction;
 		GlobalPosition = new Vector2(data.PosX, data.PosY);
 		Stats.Data = data.enemyStatsData;
 	}

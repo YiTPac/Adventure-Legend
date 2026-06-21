@@ -16,6 +16,7 @@ public partial class PlayerAttack2State : State
 	public override void OnEnter()
 	{
 		player.AnimationPlayer.Play("Attack 2");
+		SoundManager.Instance.PlaySfx("Attack2");
 		player.IsComboRequested = false; // Reset combo request when entering Attack 2 state
 		player.AnimationPlayer.AnimationFinished += OnAnimationFinished;
 	}

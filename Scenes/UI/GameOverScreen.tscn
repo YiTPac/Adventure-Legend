@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c05fi4nra55cj" path="res://Assets/Theme/MainTheme.tres" id="1_kjtn0"]
 [ext_resource type="Script" uid="uid://cxhrusi4piilv" path="res://Scripts/UI/GameOverScreen.cs" id="1_p7ek6"]
+[ext_resource type="AudioStream" uid="uid://diuho2bo0tivv" path="res://Assets/Music/Darkness Falls.wav" id="2_qdhg4"]
 
 [sub_resource type="Animation" id="Animation_p7ek6"]
 resource_name = "Enter"
@@ -96,6 +97,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p7ek6")
+backgroundMusic = ExtResource("2_qdhg4")
 animationPlayer = NodePath("AnimationPlayer")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1826256650]

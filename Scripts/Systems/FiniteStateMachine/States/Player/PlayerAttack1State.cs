@@ -17,7 +17,7 @@ public partial class PlayerAttack1State : State
 	public override void OnEnter()
 	{
 		player.AnimationPlayer.Play("Attack 1");
-		player.AttackPlayer.Play();
+		SoundManager.Instance.PlaySfx("Attack1");
 		player.AnimationPlayer.AnimationFinished += OnAnimationFinished;
 	}
 	public override void OnExit()

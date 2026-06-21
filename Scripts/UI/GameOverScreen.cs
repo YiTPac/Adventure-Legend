@@ -3,6 +3,7 @@ using System;
 
 public partial class GameOverScreen : Control
 {
+	[Export] private AudioStream backgroundMusic;
 	[Export] private AnimationPlayer animationPlayer;
 	public override void _Ready()
 	{
@@ -32,6 +33,7 @@ public partial class GameOverScreen : Control
 	public void ShowGameOver()
 	{
 		Show();
+		SoundManager.Instance.PlayMusic(backgroundMusic);
 		animationPlayer.Play("Enter");
 		animationPlayer.AnimationFinished += OnAnimationFinished;
 		

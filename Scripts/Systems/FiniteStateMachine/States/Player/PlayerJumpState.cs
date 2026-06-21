@@ -16,6 +16,7 @@ public partial class PlayerJumpState : State
 	public override void OnEnter()
 	{
 		player.AnimationPlayer.Play("Jump");
+		SoundManager.Instance.PlaySfx("Jump");
 		player.Jump();
 	}
 	public override void OnExit()

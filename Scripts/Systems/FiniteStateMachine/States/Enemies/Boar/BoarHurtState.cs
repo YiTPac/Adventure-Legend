@@ -41,11 +41,11 @@ public partial class BoarHurtState : State
 			boar.Velocity = direaction * 256;
 			if (direaction.X < 0)
 			{
-				boar.direction = Enemy.Direction.Right;
+				boar.FacingDirection = Enemy.Direction.Right;
 			}
 			else
 			{
-				boar.direction = Enemy.Direction.Left;
+				boar.FacingDirection = Enemy.Direction.Left;
 			}
 		}
 		if (boar.Stats.CurrentHealth <= 0)

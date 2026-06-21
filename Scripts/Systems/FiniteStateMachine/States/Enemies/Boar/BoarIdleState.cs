@@ -12,7 +12,7 @@ public partial class BoarIdleState : State
 			return;
 		}
 		boar = (Boar)owner;
-		boar.direction = Enemy.Direction.Left;
+		boar.FacingDirection = Enemy.Direction.Left;
 	}
 	public override void OnEnter()
 	{
@@ -20,7 +20,7 @@ public partial class BoarIdleState : State
 		//boar.FloorChecker.ForceRaycastUpdate();
 		if (boar.WallChecker.IsColliding())
 		{
-			boar.direction = boar.direction ==
+			boar.FacingDirection = boar.FacingDirection ==
 			Enemy.Direction.Left ? Enemy.Direction.Right : Enemy.Direction.Left;
 		}
 	}

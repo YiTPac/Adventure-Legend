@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://gngjg1cp81go" path="res://Assets/Fonts/Pixel.ttf" id="1_25ulu"]
 [ext_resource type="Script" uid="uid://ccke7a1ra3ylr" path="res://Scripts/UI/TitleScreen.cs" id="1_plnf0"]
 [ext_resource type="Theme" uid="uid://c05fi4nra55cj" path="res://Assets/Theme/MainTheme.tres" id="2_m3d7j"]
+[ext_resource type="AudioStream" uid="uid://badhqwy8p5gq0" path="res://Assets/Music/Before The Story.wav" id="2_pvcwi"]
 [ext_resource type="Texture2D" uid="uid://dhl14s6wfjy7w" path="res://Assets/godot-2d-adventure-tutorial-assets/Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="2_uni5q"]
 [ext_resource type="Texture2D" uid="uid://do5b0r6sr5mjt" path="res://Assets/godot-2d-adventure-tutorial-assets/Legacy-Fantasy - High Forest 2.3/Trees/Background.png" id="3_pvcwi"]
 [ext_resource type="Texture2D" uid="uid://cm8sgrs5kumqk" path="res://Assets/godot-2d-adventure-tutorial-assets/Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="4_ciful"]
@@ -457,6 +458,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_plnf0")
+backgroundMusic = ExtResource("2_pvcwi")
 newGameButton = NodePath("V/NewGame")
 loadGameButton = NodePath("V/LoadGame")
 exitGameButton = NodePath("V/ExitGame")

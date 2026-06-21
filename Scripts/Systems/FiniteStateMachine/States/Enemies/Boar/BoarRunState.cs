@@ -28,7 +28,7 @@ public partial class BoarRunState : State
 		boar.GravityControl(delta, 1);
 		if (boar.WallChecker.IsColliding() || !boar.FloorChecker.IsColliding())
 		{
-			boar.direction = boar.direction ==
+			boar.FacingDirection = boar.FacingDirection ==
 			Enemy.Direction.Left ? Enemy.Direction.Right : Enemy.Direction.Left;
 		}
 		if (boar.CanSeePlayer)

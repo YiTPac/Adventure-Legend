@@ -62,12 +62,15 @@ public partial class World : Node2D
 			}
 		}
 	}
+
+	[Export] private AudioStream audioStream;
 	[Export] private TileMapLayer tileMapLayer;
 	[Export] private Camera2D camera;
 	[Export] public Player player;
 	public override void _Ready()
 	{
 		InitializeCamera();
+		SoundManager.Instance.PlayMusic(audioStream);
 		//GD.Print(System.Environment.Version);
 	}
 

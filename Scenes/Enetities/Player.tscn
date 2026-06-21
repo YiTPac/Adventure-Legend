@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://uwjthfvl1j7d" path="res://Scripts/Systems/FiniteStateMachine/States/Player/PlayerSlidingLoopState.cs" id="20_qidb7"]
 [ext_resource type="Script" uid="uid://cmadb02ynvivq" path="res://Scripts/Systems/FiniteStateMachine/States/Player/PlayerSlidingEndState.cs" id="21_70hv0"]
 [ext_resource type="PackedScene" uid="uid://1lgaael7ufeb" path="res://Scenes/UI/GameOverScreen.tscn" id="23_rg1sx"]
+[ext_resource type="PackedScene" uid="uid://da2ssik4acoeo" path="res://Scenes/UI/PauseScreen.tscn" id="24_4rykl"]
 [ext_resource type="Texture2D" uid="uid://br4is66om8ab7" path="res://Assets/godot-2d-adventure-tutorial-assets/gdb-gamepad-2(all)/gdb-keyboard-2.png" id="24_qidb7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ausrs"]
@@ -1974,10 +1975,11 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1311620786 node_paths=PackedStringArray("gameoverScreen", "interationIcon", "Graphics", "AnimationPlayer", "CoyoteTimer", "JumpRequestTimer", "SlideRequestTimer", "InvincibleTimer", "HandChecker", "FootChecker")]
+[node name="Player" type="CharacterBody2D" unique_id=1311620786 node_paths=PackedStringArray("gameoverScreen", "pauseScreen", "interationIcon", "Graphics", "AnimationPlayer", "CoyoteTimer", "JumpRequestTimer", "SlideRequestTimer", "InvincibleTimer", "HandChecker", "FootChecker")]
 collision_layer = 2
 script = ExtResource("1_kyqiw")
 gameoverScreen = NodePath("CanvasLayer/GameOverScreen")
+pauseScreen = NodePath("CanvasLayer/PauseScreen")
 jumpVelocity = -320.0
 wallJumpVelocity = Vector2(175, -280)
 runSpeed = 160.0
@@ -2155,6 +2157,10 @@ offset_right = 96.0
 offset_bottom = 35.0
 
 [node name="GameOverScreen" parent="CanvasLayer" unique_id=530010984 instance=ExtResource("23_rg1sx")]
+visible = false
+
+[node name="PauseScreen" parent="CanvasLayer" unique_id=694522923 instance=ExtResource("24_4rykl")]
+visible = false
 
 [node name="InteractionIcon" type="AnimatedSprite2D" parent="." unique_id=1400333691]
 visible = false

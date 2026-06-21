@@ -8,7 +8,8 @@ using System.Text.Json;
 
 public partial class Game : Node
 {
-	public const string savePath = "C:\\Users\\YiTPac\\AppData\\Roaming\\Godot\\app_userdata\\Adventure Legend\\data.sav";
+	public const string SavePath = "C:\\Users\\YiTPac\\AppData\\Roaming\\Godot\\app_userdata\\Adventure Legend\\data.sav";
+	public const string ConfigPath = "user://config.ini";
 	public static Game Instance { get; private set; }
 	public Dictionary<string, Dictionary<string, string>> worldStates = [];
 	public StatsData defaultPlayerStatsData = new StatsData();
@@ -20,12 +21,13 @@ public partial class Game : Node
 	{
 		get
 		{
-			return File.Exists(savePath);
+			return File.Exists(SavePath);
 		}
 	}
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		defaultPlayerStatsData = playerStats.Data;
+		
 		if (Instance == null)
 		{
 			Instance = this;
@@ -34,6 +36,8 @@ public partial class Game : Node
 		{
 			QueueFree();
 		}
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		LoadConfig();
 	}
 	public async void ChangeScene(string path, string entryPointName)
 	{
@@ -122,7 +126,7 @@ public partial class Game : Node
 		GD.Print("JSON: " + jsonString);
 		try
 		{
-			File.WriteAllText(savePath, jsonString);
+			File.WriteAllText(SavePath, jsonString);
 			GD.Print("File saved successfully!");
 		}
 		catch (Exception exception)
@@ -146,9 +150,9 @@ public partial class Game : Node
 
 	public void LoadGame()
 	{
-		if (File.Exists(savePath))
+		if (File.Exists(SavePath))
 		{
-			string jsonText = File.ReadAllText(savePath);
+			string jsonText = File.ReadAllText(SavePath);
 			var options = new JsonSerializerOptions
 			{
 				IncludeFields = true,
@@ -169,7 +173,7 @@ public partial class Game : Node
 
 	public async void NewGame()
 	{
-		File.Delete(savePath);
+		File.Delete(SavePath);
 		worldStates = [];
 		var tree = GetTree();
 		tree.Paused = true;
@@ -205,5 +209,26 @@ public partial class Game : Node
 		tween = CreateTween();
 		tween.TweenProperty(colorRect, "color:a", 0, 0.2d);
 		await ToSignal(tween, Tween.SignalName.Finished);
+	}
+	
+	public void SaveConfig()
+	{
+		var config = new ConfigFile();
+		
+		config.SetValue("Audio", "Master", SoundManager.Instance.GetVolume((int)SoundBus.Master));
+		config.SetValue("Audio", "SFX", SoundManager.Instance.GetVolume((int)SoundBus.SFX));
+		config.SetValue("Audio", "BackgroundMusic", SoundManager.Instance.GetVolume((int)SoundBus.BackgroundMusic));
+		
+		config.Save(ConfigPath);
+	}
+
+	public void LoadConfig()
+	{
+		var config = new ConfigFile();
+		config.Load(ConfigPath);
+		
+		SoundManager.Instance.SetVolume((int)SoundBus.Master, config.GetValue("Audio", "Master", 0.5f).AsSingle());
+		SoundManager.Instance.SetVolume((int)SoundBus.SFX, config.GetValue("Audio", "SFX", 1.0f).AsSingle());
+		SoundManager.Instance.SetVolume((int)SoundBus.BackgroundMusic, config.GetValue("Audio", "BackgroundMusic", 1.0f).AsSingle());
 	}
 }

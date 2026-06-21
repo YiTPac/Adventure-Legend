@@ -16,6 +16,7 @@ public partial class PlayerAttack3State : State
 	public override void OnEnter()
 	{
 		player.AnimationPlayer.Play("Attack 3");
+		SoundManager.Instance.PlaySfx("Attack3");
 		player.IsComboRequested = false; // Reset combo request when entering Attack 3 state
 		player.AnimationPlayer.AnimationFinished += OnAnimationFinished;
 	}
@@ -50,7 +51,6 @@ public partial class PlayerAttack3State : State
 		if (animName == "Attack 3")
 		{
 			stateMachine.SwitchState<PlayerIdleState>();
-			return;
 		}
 	}
 }

@@ -19,7 +19,7 @@ public partial class BoarWalkState : State
 		//boar.WallChecker.ForceRaycastUpdate();
 		if (!boar.FloorChecker.IsColliding())
 		{
-			boar.direction = boar.direction ==
+			boar.FacingDirection = boar.FacingDirection ==
 			Enemy.Direction.Left ? Enemy.Direction.Right : Enemy.Direction.Left;
 
 		}
