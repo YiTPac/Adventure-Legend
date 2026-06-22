@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class SaveStone : Interactable, ISaveable<bool>
 {
@@ -24,7 +23,8 @@ public partial class SaveStone : Interactable, ISaveable<bool>
 	public override void Interact(Player player)
 	{
 		base.Interact(player);
-
+		
+		player.Stats.CurrentHealth = player.Stats.MaxHealth;
 		Activated = true;
 		Game.Instance.SaveGame();
 

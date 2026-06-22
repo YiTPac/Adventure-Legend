@@ -9,7 +9,7 @@ maxSpeed = 240.0
 scale = Vector2(2.5, 2.5)
 
 [node name="Hitbox" parent="Graphics" index="4" unique_id=298937104]
-DamageAmount = 25
+DamageAmount = 15
 
 [node name="Stats" parent="." index="5" unique_id=1186858638]
-MaxHealth = 500
+MaxHealth = 1

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class PlayerSlidingStartState : State
 {
@@ -15,6 +14,7 @@ public partial class PlayerSlidingStartState : State
 	}
 	public override void OnEnter()
 	{
+		SoundManager.Instance.PlaySfx("Slide");
 		player.Stats.CurrentEnergy -= player.SlideEnergyCost;
 		player.SlideRequestTimer.Stop();
 		player.AnimationPlayer.Play("SlidingStart");

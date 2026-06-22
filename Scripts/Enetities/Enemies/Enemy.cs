@@ -1,5 +1,4 @@
 using Godot;
-using Godot.Collections;
 using System.Collections.Generic;
 
 public struct EnemyData
@@ -16,7 +15,7 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 		Right = 1,
 		Left = -1
 	}
-
+	[Signal] public delegate void EnemyDiedEventHandler();
 	[Export] public Stats Stats { get; private set; }
 	[Export] public Node2D Graphics { get; private set; }
 	[Export] public AnimationPlayer AnimationPlayer { get; private set; }
@@ -36,7 +35,7 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 				//GD.Print(Name + ":" + Mathf.Abs(Graphics.Scale.X).ToString() + "and" + (-(float)value).ToString());
 				Graphics.Scale = new Vector2(-(float)value * Mathf.Abs(Graphics.Scale.X), Graphics.Scale.Y);
 			}
-			
+
 		}
 	}
 	[Export] private float maxSpeed = 180;
@@ -46,7 +45,7 @@ public partial class Enemy : CharacterBody2D, ISaveable<EnemyData>
 	private Direction direction;
 	// Called when the node enters the scene tree for the first time.
 	public string SaveKey { get => GetPathTo(this); }
-	
+
 	// public override Dictionary<string, EnemyData> SaveState()
 	// {
 	// 	return new Dictionary<>

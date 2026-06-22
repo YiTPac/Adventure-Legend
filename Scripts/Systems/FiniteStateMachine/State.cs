@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Buffers;
 
 [GlobalClass]
 [Icon("res://Icons/StateIcon.svg")]

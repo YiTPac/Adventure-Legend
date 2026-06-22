@@ -1,13 +1,13 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
+using Godot.Collections;
 
 public struct PlayerData
 {
 	public Player.Direction direction;
-	public float PosX;
-	public float PosY;
+	public float posX;
+	public float posY;
 }
 
 public partial class Player : CharacterBody2D
@@ -24,30 +24,32 @@ public partial class Player : CharacterBody2D
 			return new PlayerData
 			{
 				direction = FacingDirection,
-				PosX = GlobalPosition.X,
-				PosY = GlobalPosition.Y
+				posX = GlobalPosition.X,
+				posY = GlobalPosition.Y
 			};
 		}
 		set
 		{
 			FacingDirection = value.direction;
-			GlobalPosition = new Vector2(value.PosX, value.PosY);
+			GlobalPosition = new Vector2(value.posX, value.posY);
 		}
 	}
-	private Direction _facingDirection;
+	private Direction facingDirection;
 	[Export]
 	public Direction FacingDirection
 	{
 		set
 		{
-			_facingDirection = value;
-			Graphics.Scale = new Vector2((float)_facingDirection, Graphics.Scale.Y);
+			facingDirection = value;
+			Graphics.Scale = new Vector2((float)facingDirection, Graphics.Scale.Y);
 		}
 		get
 		{
-			return _facingDirection;
+			return facingDirection;
 		}
 	}
+
+	[Export] private Array<Hitbox> hitboxs;
 	[Export] private GameOverScreen gameoverScreen;
 	[Export] private PauseScreen pauseScreen;
 	[Export] private bool canCombo;
@@ -130,6 +132,18 @@ public partial class Player : CharacterBody2D
 		airAcceleration = (float)(runSpeed / 0.02);
 		GetNode<Hurtbox>("Graphics/Hurtbox").Hurt += OnHurt;
 		FacingDirection = Direction.Right;
+		foreach (var hitbox in hitboxs)
+		{
+			hitbox.Hit += OnHitboxHit;
+		}
+	}
+
+	private async void OnHitboxHit(Hurtbox hitbox,int amount)
+	{
+		Game.Instance.ShakeCamera(2);
+		Engine.TimeScale = 0.01;
+		await ToSignal(GetTree().CreateTimer(0.05f,true,false,true), "timeout");
+		Engine.TimeScale = 1;
 	}
 	public override void _EnterTree()
 	{

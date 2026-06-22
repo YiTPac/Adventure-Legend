@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class TitleScreen : Control
 {
@@ -8,6 +7,8 @@ public partial class TitleScreen : Control
 	[Export] private Button loadGameButton;
 	[Export] private Button exitGameButton;
 	[Export] private VBoxContainer boxContainer;
+	[Export] private Camera2D camera;
+	[Export] private TileMapLayer tileMapLayer;
 	public override void _Ready()
 	{
 		newGameButton.GrabFocus();
@@ -17,6 +18,20 @@ public partial class TitleScreen : Control
 		exitGameButton.Pressed += OnExitGamePressed;
 		SoundManager.Instance.PlayMusic(backgroundMusic);
 		SoundManager.Instance.SetupUiSounds(this);
+		//InitializeCamera();
+	}
+	
+	private void InitializeCamera()
+	{
+		var used = tileMapLayer.GetUsedRect().Grow(-1);
+		var tileSize = tileMapLayer.TileSet.TileSize;
+
+		camera.LimitTop = used.Position.Y * tileSize.Y;
+		camera.LimitLeft = used.Position.X * tileSize.X;
+		camera.LimitBottom = used.End.Y * tileSize.Y;
+		camera.LimitRight = used.End.X * tileSize.X;
+		camera.ResetSmoothing();
+		//camera.ForceUpdateScroll();
 	}
 	
 	public void OnNewGamePressed()

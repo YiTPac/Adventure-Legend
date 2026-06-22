@@ -1,5 +1,4 @@
 using Godot;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +16,9 @@ public partial class Game : Node
 	[Export] public Stats playerStats;
 	[Export(PropertyHint.File)] private string initialWorldPath;
 	[Export(PropertyHint.File)] private string titleScreenPath;
+
+	[Signal]
+	public delegate void CameraShouldShakeEventHandler(float strength);
 	public bool HasSave
 	{
 		get
@@ -230,5 +232,10 @@ public partial class Game : Node
 		SoundManager.Instance.SetVolume((int)SoundBus.Master, config.GetValue("Audio", "Master", 0.5f).AsSingle());
 		SoundManager.Instance.SetVolume((int)SoundBus.SFX, config.GetValue("Audio", "SFX", 1.0f).AsSingle());
 		SoundManager.Instance.SetVolume((int)SoundBus.BackgroundMusic, config.GetValue("Audio", "BackgroundMusic", 1.0f).AsSingle());
+	}
+
+	public void ShakeCamera(float strength)
+	{
+		EmitSignal(SignalName.CameraShouldShake, strength);
 	}
 }

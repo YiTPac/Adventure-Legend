@@ -592,7 +592,7 @@ target_position = Vector2(-89, 0)
 collision_mask = 3
 
 [node name="FloorChecker" type="RayCast2D" parent="Graphics" parent_id_path=PackedInt32Array(611397099) index="3" unique_id=1998912047]
-position = Vector2(-12, -1)
+position = Vector2(-22, -1)
 target_position = Vector2(0, 4)
 
 [node name="Hitbox" parent="Graphics" parent_id_path=PackedInt32Array(611397099) index="4" unique_id=298937104]

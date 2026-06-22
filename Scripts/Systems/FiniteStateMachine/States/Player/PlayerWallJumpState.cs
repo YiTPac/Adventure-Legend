@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class PlayerWallJumpState : State
 {
@@ -16,6 +15,7 @@ public partial class PlayerWallJumpState : State
 	public override void OnEnter()
 	{
 		player.AnimationPlayer.Play("Jump");
+		SoundManager.Instance.PlaySfx("Jump");
 		player.WallJump();
 		//player.Graphics.Scale = new Vector2(player.GetWallNormal().X, player.Graphics.Scale.Y);
 		player.FacingDirection = Player.ToDrection(player.GetWallNormal().X);

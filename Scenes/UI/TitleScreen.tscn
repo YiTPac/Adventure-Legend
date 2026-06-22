@@ -450,7 +450,7 @@ _data = {
 &"RESET": SubResource("Animation_pvcwi")
 }
 
-[node name="TitleScreen" type="Control" unique_id=35883441 node_paths=PackedStringArray("newGameButton", "loadGameButton", "exitGameButton", "boxContainer")]
+[node name="TitleScreen" type="Control" unique_id=35883441 node_paths=PackedStringArray("newGameButton", "loadGameButton", "exitGameButton", "boxContainer", "camera", "tileMapLayer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -463,6 +463,8 @@ newGameButton = NodePath("V/NewGame")
 loadGameButton = NodePath("V/LoadGame")
 exitGameButton = NodePath("V/ExitGame")
 boxContainer = NodePath("V")
+camera = NodePath("Camera2D")
+tileMapLayer = NodePath("Graphics/TileMaps/Geometry")
 
 [node name="Graphics" type="Node2D" parent="." unique_id=1934303602]
 position = Vector2(-14, 23)
@@ -794,3 +796,6 @@ text = "退出游戏"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=151481681]
 libraries/ = SubResource("AnimationLibrary_ciful")
 autoplay = &"Enter"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=919266394]
+position = Vector2(193, 108)

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class PlayerHurtState : State
 {
@@ -15,6 +14,8 @@ public partial class PlayerHurtState : State
 	}
 	public override void OnEnter()
 	{
+		SoundManager.Instance.PlaySfx("Damage");
+		Game.Instance.ShakeCamera(4);
 		player.AnimationPlayer.Play("Hurt");
 		player.InvincibleTimer.Start();
 		player.AnimationPlayer.AnimationFinished += OnAnimationFinished;

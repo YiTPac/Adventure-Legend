@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Godot;
 
 public partial class Boar : Enemy
@@ -44,6 +43,7 @@ public partial class Boar : Enemy
 
 	public void Die()
 	{
+		EmitSignal(Enemy.SignalName.EnemyDied);
 		QueueFree();
 	}
 }
